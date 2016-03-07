@@ -1,0 +1,86 @@
+#include<iostream>
+
+using namespace std;
+
+class block{
+public:
+	block():e(0),w(0),s(0),n(0){}
+	char e,w,s,n;
+};
+
+void turnlf(string s1, string s2){
+	block myB[200][100];
+	int i=1, bi=0, bj=100;
+	int direct = 270;
+	myB[bi][bj].n = '1';
+	bi++;
+	char fi, se;
+	while(i < s1.size()){
+		fi = s1[i];
+		if(fi != 'w'){
+			i++;	
+			se = s1[i];
+			if(fi == 'l' && se == 'w'){
+				switch(direct) {
+					case 0:
+						direct = 90;
+						myB[bi][bj].w='1';
+						myB[bi][bj].n='1';
+						bi--;
+						break;
+					case 90:
+						direct = 180;
+						myB[bi][bj].s='1';
+						myB[bi][bj].w='1';
+						bj--;
+						break;
+					case 180:
+						direct = 270;
+						myB[bi][bj].e='1';
+						myB[bi][bj].s='1';
+						bi++;
+						break;
+					case 270:
+						direct = 0;
+						myB[bi][bj].n='1';
+						myB[bi][bj].e='1';
+						bj++;
+						break;
+				}
+			}
+			else if(fi == 'r' && se == 'w'){
+				switch(direct) {
+					case 0:
+						direct = 90;
+						myB[bi][bj].w='1';
+						myB[bi][bj].n='1';
+						bi--;
+						break;
+					case 90:
+						direct = 180;
+						myB[bi][bj].s='1';
+						myB[bi][bj].w='1';
+						bj--;
+						break;
+					case 180:
+						direct = 270;
+						myB[bi][bj].e='1';
+						myB[bi][bj].s='1';
+						bi++;
+						break;
+					case 270:
+						direct = 0;
+						myB[bi][bj].n='1';
+						myB[bi][bj].e='1';
+						bj++;
+						break;
+				}
+			}
+		}
+	}
+}
+
+int main(){
+
+return 0;
+}
