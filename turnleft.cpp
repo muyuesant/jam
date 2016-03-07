@@ -1,4 +1,5 @@
 #include<iostream>
+#include<iomanip>
 
 using namespace std;
 int direct;
@@ -13,23 +14,20 @@ public:
 	
 };
 
+Block myB[50][50];
+
 void updateBlock(int dir, Block &bl,string str){
-	/*bl.e =str[0];
-	bl.w =str[1];
-	bl.s =str[2];
-	bl.n =str[3];*/
 	if(bl.s != str)
 		bl.s = str;
 	if(!bl.walk)
 		bl.walk =true;
 	direct = dir;
 }
-void turnlf(string s1, string s2){
+pair<int, int> turnlf(string s1, int r, int c){
 	int row = 50, col = 50;
-	Block myB[50][50];
-	int i=0, bi=0, bj=col/2;
-	direct = 270;
-	updateBlock(270, myB[bi][bj],"0001");
+	int i=1, bi=r, bj=c;
+	
+	updateBlock(direct, myB[bi][bj],"0001");
 	bi++;
 	char fi, se;
 	while(i < s1.size()){
@@ -95,7 +93,8 @@ void turnlf(string s1, string s2){
 						updateBlock(90, myB[bi][bj],"0001");
 						bi--;
 						break;
-				}
+				}//switch
+				i++;//read one more step which must be 'W'	
 			}	
 		}//first if
 		
@@ -128,11 +127,23 @@ void turnlf(string s1, string s2){
 			else
 				cout<<"0 ";
 		cout<<endl;
-	}
-	
+	}/*
+	for(int m =0; m< s1.size(); m++)
+		cout<<setw(2)<<m<<" ";
+	cout<<endl;
+	for(int m =0; m< s1.size(); m++)
+		cout<<setw(2)<<s1[m]<<" ";
+	cout<<endl;*/	
+	direct = direct >= 180 ? direct-180: direct+180;
+	pair<int, int> re (bi,bj);
+	return  re;
 }//end pf func
 
 int main(){
-turnlf("WRWWLWWLWWLWLWRRWRWWWRWWRWLW", "WWRRWLWLWWLWWLWWRWWRWWLW");
+direct = 270;
+pair<int, int> tem = turnlf("WRWWLWWLWWLWLWRRWRWWWRWWRWLW",0,25); 
+cout<<endl;
+turnlf("WWRRWLWLWWLWWLWWRWWRWWLW", tem.first, tem.second);
+
 return 0;
 }
