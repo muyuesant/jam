@@ -1,0 +1,149 @@
+Q1:
+	a)n, r
+	b)m, n
+	c) Both bObj and dObj can execute demoFunc() in the base class.
+		for bObj:	bObj.demoFunc();
+		for dObj:	dObj.bObj::demoFunc();
+		
+	   	
+		dObj can execute demofunc() in the derived class.
+					dObj.demoFunc();
+		
+Q2:
+	baseCL constructor
+	baseCL constructor
+	derivedCL constructor
+	derivedCL desstructor
+	baseCL desstructor
+	baseCL desstructor
+
+Q3:
+#include <iostream>
+
+using namespace std;
+
+template <typename T>
+class Node {
+public:
+T nodeValue;
+Node<T> *next;
+Node (const T& item, Node<T> *ptr = NULL): nodeValue(item), next(ptr) {}
+};
+
+template <typename T>
+class Queue{
+private:
+	Node<T> *head;
+	Node<T> *tail;
+	int size;
+
+public:
+	Queue(): head(NULL), tail(NULL), size(0) {}
+	
+	void push(T val){
+		Node<T> *temNode = new Node<T>(val);
+		//temNode->nodeValue = val;
+		if(head == NULL){
+			head = temNode;
+			head->next = NULL;
+		}
+		else
+			tail->next = temNode;
+		tail = temNode;
+		tail->next =NULL;
+		size++;
+	}
+	
+	T pop(){
+		if(head == NULL){
+			cout<<"empty queue.\n";
+			return -999999999;
+		}
+		else{
+			T tem = head->nodeValue;
+			head = head->next;
+			size--;
+			return tem;
+		}
+	}
+
+	T front(){
+		return  head->nodeValue;
+	}
+	T end(){
+		return tail->nodeValue;
+	}
+	bool empty(){
+		return size == 0 ? true : false;
+	}
+	int Size(){
+		return size;
+	}	
+	Node<T>* getHead(){
+		return head;
+	}
+	void setHead(Node<T>* node){
+		/*Node<T> tem = head;
+		head = node;
+		head->next = tem;
+		*/
+		node->next = head;
+		head = node;
+		size++;
+	}
+	Node<T>* getTail(){
+		return tail;
+	}
+	void setTail(Node<T>* node){
+		tail->next = node;
+		tail = node;
+		tail->next = NULL;
+		size++;
+	}
+};
+
+template <typename T>
+class DerivedQueue: public Queue<T> {
+public:
+	DerivedQueue(){}
+	void emergency_push(T val){
+		Node<T> *tem = new Node<T>(val);
+		Queue<T>::setHead(tem);
+	}
+};
+int main(){
+/*	DerivedQueue<int> test;
+	test.Queue::push(5);
+	test.Queue::push(7);
+	test.emergency_push(10);
+	cout<<test.Queue::pop()<<endl;
+*/
+
+return 0;
+}
+
+Q4:
+r->displayEmployeeInfo();
+	
+	Name: Johns Ross
+	Social Security Number: 896-54-3217
+	Status: hourly employee
+	Payrate: $7.50 per hour
+	Work schedule (hours per week) 40
+	
+q->displayEmployeeInfo();
+	
+	Name: "Steve Howard
+	Social Security Number: 896-54-3217
+	Salary per week $3300.00
+	
+q->employee::displayEmployeeInfo();
+	
+	Name: "Steve Howard
+	Social Security Number: 896-54-3217
+	
+p->displayEmployeeInfo();
+
+	Name: "Steve Howard
+	Social Security Number: 896-54-3217
+	Salary per week $3300.00
