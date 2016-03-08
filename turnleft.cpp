@@ -4,19 +4,19 @@
 #include<string>
 
 using namespace std;
-int direct;
-int maxbi, maxbj;
+int direct;// global variable to hold the direction. 0 90 180 270
+int maxbi, maxbj;// index help to determind the size of the maza
+
 class Block{
 public:
-	//Block():e(0),w(0),s(0),n(0),walk(false){}
-	//char e,w,s,n;
 	Block():s("0000"),walk(false){}
-	string s;
-	bool walk;
+	string s;// e,w,s,n;  a string which size is 4 to indicate that which wall of the block is open. 0 is close, 1 is open. 
+	bool walk;// indicates that the block has been walk through.
 };
 
-Block myB[50][50];
+Block myB[50][50];// global 2d array of block which represent the maze.
 
+//update the string of the block and set walk to true;
 void updateBlock(int dir, Block &bl,string str){
 	if(bl.s != str && bl.s == "0000" && str != "0000")
 		bl.s = str;
@@ -30,12 +30,12 @@ void updateBlock(int dir, Block &bl,string str){
 		bl.walk =true;
 	direct = dir;
 }
+
+//fucntion that receives a string, the indexs of the entrance block as the parameters
+// return a pair value which consists the index of the exist.
 pair<int, int> turnlf(string s1, int r, int c){
 	int row = 50, col = 50;
 	int i=0, bi=r, bj=c;
-	
-//	updateBlock(direct, myB[bi][bj],"0001");
-//	bi++;
 	char fi, se;
 	while(i < s1.size()){
 		fi = s1[i];
@@ -135,21 +135,8 @@ pair<int, int> turnlf(string s1, int r, int c){
 		}
 		i++;
 	}//end of while
-	/*for(int m =0; m < row; m++){
-		for(int n = 0; n< col; n++)
-			if(myB[m][n].walk)
-				cout<<"1 ";
-			else
-				cout<<"0 ";
-		cout<<endl;
-	}
-	for(int m =0; m< s1.size(); m++)
-		cout<<setw(2)<<m<<" ";
-	cout<<endl;
-	for(int m =0; m< s1.size(); m++)
-		cout<<setw(2)<<s1[m]<<" ";
-	cout<<endl;*/	
-	direct = direct >= 180 ? direct-180: direct+180;
+	
+	direct = direct >= 180 ? direct-180: direct+180; // when get out the maze, reverse the direction.
 	pair<int, int> re (bi,bj);
 	return  re;
 }//end pf func
@@ -175,8 +162,7 @@ for(int k =0; k< testNum; k++){
 	infile>>s2;
 	turnlf(s2,tem.first, tem.second);
 	getline(infile,ts);///////move to next line;
-	//myB[0][25].walk = false;
-	//myB[tem.first][tem.second].walk = false;
+	//reset the entrance and the exist block of the maze.
 	resetmyB(myB[0][25]);
 	resetmyB(myB[tem.first][tem.second]);
 		
@@ -196,7 +182,6 @@ for(int k =0; k< testNum; k++){
 	}
 	
 }
-
 infile.close();
 outfile.close();
 return 0;
