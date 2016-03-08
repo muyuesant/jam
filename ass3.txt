@@ -112,13 +112,6 @@ public:
 	}
 };
 int main(){
-/*	DerivedQueue<int> test;
-	test.Queue::push(5);
-	test.Queue::push(7);
-	test.emergency_push(10);
-	cout<<test.Queue::pop()<<endl;
-*/
-
 return 0;
 }
 
