@@ -6,7 +6,7 @@
 #include<string>
 
 using namespace std;
-
+/*
 void storeCredit(int a[], int size, int c){
 	if(size == 0)
 		cout<<"empty array.\n";
@@ -27,24 +27,17 @@ void storeCredit(int a[], int size, int c){
 			cout<<"no match\n";
 	}
 
-}
+}*/
 
 int minScaPro(vector<int> &v1, vector<int> &v2){
-	priority_queue<int> q1(v1.begin(), v1.end()), q1_2(v1.begin(), v1.end());
-	priority_queue<int, vector<int>, greater<int> > q2(v2.begin(), v2.end());
+	priority_queue<int> q1(v1.begin(), v1.end()), q1_2(v1.begin(), v1.end()); // large to small
+	priority_queue<int, vector<int>, greater<int> > q2(v2.begin(), v2.end());// small to large
 	int sum=0;
-	/*while(!q1_2.empty()){
-		cout<<q1_2.top()<<" ";
-		q1_2.pop();
-	}*/
-	//cout<<endl;
 	while(!q1.empty()){
-		//cout<<q2.top()<<" ";
 		sum+= q1.top() * q2.top();
 		q1.pop();
 		q2.pop();
 	} 
-	//cout<<"\nminimum scalar product is: "<<sum<<endl;
 	return sum;
 }
 int main(){
@@ -60,7 +53,6 @@ int main(){
 		while(testNum > 0){
 			getline(infile, temStr);
 			int size = atoi(temStr.c_str());
-			//if(size == 0)
 			
 			vector<int> v1(size), v2(size);
 			for(int i =0; i<size; i++)
